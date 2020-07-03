@@ -1,0 +1,2 @@
+com/poc/movies/inventory/AppTest.java
+ com.poc.movies.inventory.AppTest
