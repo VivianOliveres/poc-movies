@@ -1,60 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.poc.movies.inventory.InventoryServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-08T08:59:43" hostname="Dojo" time="0.451">
+<testsuite name="com.poc.movies.inventory.InventoryServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-07-08T16:37:20" hostname="Dojo" time="0.3">
   <properties/>
-  <testcase name="should_not_update_existing_by_inserting_a_new_one" classname="com.poc.movies.inventory.InventoryServiceTest" time="0.451"/>
-  <system-out><![CDATA[10:59:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.poc.movies.inventory.InventoryServiceTest]
-10:59:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.poc.movies.inventory.InventoryServiceTest]
-10:59:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.poc.movies.inventory.InventoryServiceTest]
-10:59:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.poc.movies.inventory.InventoryServiceTest]
-10:59:41.800 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@2e155b02 testClass = InventoryServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@7db70bef testClass = InventoryServiceTest, locations = '{}', classes = '{class com.poc.movies.inventory.InventoryApp, class com.poc.movies.inventory.InventoryApp}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@e70254f, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@360f5c83, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@79fafbc5, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@159cf34f, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
-10:59:41.801 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.poc.movies.inventory.InventoryServiceTest]
-10:59:41.801 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.poc.movies.inventory.InventoryServiceTest]
-10:59:41.814 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.3.1.RELEASE)
-
-2020-07-08 10:59:42.011  INFO 14442 --- [    Test worker] c.p.m.inventory.InventoryServiceTest     : Starting InventoryServiceTest on Dojo with PID 14442 (started by kensai in /home/kensai/git/poc-movies/inventory)
-2020-07-08 10:59:42.012  INFO 14442 --- [    Test worker] c.p.m.inventory.InventoryServiceTest     : No active profile set, falling back to default profiles: default
-2020-07-08 10:59:42.294  INFO 14442 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2020-07-08 10:59:42.325  INFO 14442 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 3 JDBC repository interfaces.
-2020-07-08 10:59:42.722  INFO 14442 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-07-08 10:59:42.960  INFO 14442 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-07-08 10:59:43.375  INFO 14442 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-07-08 10:59:43.577  INFO 14442 --- [    Test worker] c.p.m.inventory.InventoryServiceTest     : Started InventoryServiceTest in 1.758 seconds (JVM running for 2.381)
-2020-07-08 10:59:43.820 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2020-07-08 10:59:43.821 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [SELECT category_id, category_name FROM Categories WHERE category_name IN (?, ?, ?, ?, ?)]
-2020-07-08 10:59:43.880 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.881 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Categories` (`category_name`) VALUES (?)]
-2020-07-08 10:59:43.897 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.897 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Categories` (`category_name`) VALUES (?)]
-2020-07-08 10:59:43.899 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.899 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Categories` (`category_name`) VALUES (?)]
-2020-07-08 10:59:43.901 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.901 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Categories` (`category_name`) VALUES (?)]
-2020-07-08 10:59:43.903 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.903 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Categories` (`category_name`) VALUES (?)]
-2020-07-08 10:59:43.923 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2020-07-08 10:59:43.924 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO Movies VALUES (?, ?)]
-2020-07-08 10:59:43.941 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.941 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Movies_Categories` (`category_id`, `movie_id`) VALUES (?, ?)]
-2020-07-08 10:59:43.943 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.944 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Movies_Categories` (`category_id`, `movie_id`) VALUES (?, ?)]
-2020-07-08 10:59:43.946 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.946 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Movies_Categories` (`category_id`, `movie_id`) VALUES (?, ?)]
-2020-07-08 10:59:43.948 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.948 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Movies_Categories` (`category_id`, `movie_id`) VALUES (?, ?)]
-2020-07-08 10:59:43.950 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing SQL update and returning generated keys
-2020-07-08 10:59:43.950 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO `Movies_Categories` (`category_id`, `movie_id`) VALUES (?, ?)]
-2020-07-08 10:59:43.965 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2020-07-08 10:59:43.965 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [SELECT category_id, category_name FROM Categories WHERE category_name IN (?, ?, ?)]
-2020-07-08 10:59:43.973 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2020-07-08 10:59:43.973 DEBUG 14442 --- [    Test worker] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [INSERT INTO Movies VALUES (?, ?)]
-]]></system-out>
+  <testcase name="should_not_update_existing_by_inserting_a_new_one" classname="com.poc.movies.inventory.InventoryServiceTest" time="0.186"/>
+  <testcase name="should_insert_then_getById_movie" classname="com.poc.movies.inventory.InventoryServiceTest" time="0.113"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

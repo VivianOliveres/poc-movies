@@ -2,9 +2,9 @@ com/poc/movies/inventory/InventoryAppTest.java
  com.poc.movies.inventory.InventoryAppTest
 com/poc/movies/inventory/db/MovieCategoryRepositoryTest.java
  com.poc.movies.inventory.db.MovieCategoryRepositoryTest
-com/poc/movies/inventory/InventoryServiceTest.java
- com.poc.movies.inventory.InventoryServiceTest
-com/poc/movies/inventory/db/CategoryRepositoryTest.java
- com.poc.movies.inventory.db.CategoryRepositoryTest
 com/poc/movies/inventory/db/MovieRepositoryTest.java
  com.poc.movies.inventory.db.MovieRepositoryTest
+com/poc/movies/inventory/db/CategoryRepositoryTest.java
+ com.poc.movies.inventory.db.CategoryRepositoryTest
+com/poc/movies/inventory/InventoryServiceTest.java
+ com.poc.movies.inventory.InventoryServiceTest

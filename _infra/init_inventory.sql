@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS Categories (
     category_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL
 );
+ALTER TABLE Categories ADD UNIQUE INDEX category_name_unique (category_name ASC) ;
 
 CREATE TABLE IF NOT EXISTS Movies_Categories (
     movies_categories_id BIGINT AUTO_INCREMENT PRIMARY KEY,

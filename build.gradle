@@ -35,6 +35,8 @@ subprojects {
         dependencies {
             dependency 'com.google.guava:guava:29.0-jre'
 
+            dependency 'com.squareup.okhttp3:okhttp:4.7.2'
+
             // Tests
             dependency 'org.junit.jupiter:junit-jupiter:5.6.2'
             dependency 'org.junit.jupiter:junit-jupiter-engine:5.6.2'

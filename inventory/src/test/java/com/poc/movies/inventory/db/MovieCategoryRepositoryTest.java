@@ -44,7 +44,8 @@ public class MovieCategoryRepositoryTest {
         assertThat(movieRepo.findById(MOVIE.getMovieId())).isEqualTo(Optional.of(MOVIE));
 
         categoryRepository.deleteAll();
-        CATEGORY = categoryRepository.save(CATEGORY.withCategoryId(null));
+        categoryRepository.insertIgnoreOne(CATEGORY.getCategoryName());
+        CATEGORY = categoryRepository.findByCategoryName(CATEGORY.getCategoryName());
         assertThat(categoryRepository.count()).isEqualTo(1);
         assertThat(categoryRepository.findById(CATEGORY.getCategoryId())).isEqualTo(Optional.of(CATEGORY));
     }

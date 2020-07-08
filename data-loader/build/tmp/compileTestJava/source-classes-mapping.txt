@@ -1,0 +1,2 @@
+com/poc/movies/loader/inventory/MainMovieLoaderTest.java
+ com.poc.movies.loader.inventory.MainMovieLoaderTest

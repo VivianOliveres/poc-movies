@@ -4,5 +4,4 @@ DELETE FROM Movies_Categories;
 DELETE FROM Categories;
 DELETE FROM Movies;
 
-
 SET FOREIGN_KEY_CHECKS=1;

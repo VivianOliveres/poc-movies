@@ -3,7 +3,6 @@ package com.poc.movies.inventory;
 import com.poc.movies.inventory.exceptions.InsertException;
 import com.poc.movies.inventory.model.Movie;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

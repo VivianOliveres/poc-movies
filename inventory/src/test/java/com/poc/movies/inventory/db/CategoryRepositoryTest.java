@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,7 +35,9 @@ public class CategoryRepositoryTest {
 
     @Test
     public void should_insert_category() {
-        CategoryEntity insertedEntity = categoryRepository.save(new CategoryEntity(null, CATEGORY_NAME));
+        categoryRepository.insertIgnoreOne(CATEGORY_NAME);
+
+        CategoryEntity insertedEntity = categoryRepository.findByCategoryName(CATEGORY_NAME);
 
         assertThat(insertedEntity).isNotNull();
         assertThat(insertedEntity.getCategoryId()).isNotNull();
@@ -46,11 +49,28 @@ public class CategoryRepositoryTest {
 
     @Test
     public void should_delete_existing_category() {
-        CategoryEntity insertedEntity = categoryRepository.save(new CategoryEntity(null, CATEGORY_NAME));
+        categoryRepository.insertIgnoreOne(CATEGORY_NAME);
+        CategoryEntity insertedEntity = categoryRepository.findByCategoryName(CATEGORY_NAME);
+
         categoryRepository.delete(insertedEntity);
 
         List<CategoryEntity> entities = Lists.newArrayList(categoryRepository.findAll());
         assertThat(entities).isEmpty();
+    }
+
+    @Test
+    public void should_insert_category_on_duplicate() {
+        categoryRepository.insertIgnoreOne(CATEGORY_NAME);
+        categoryRepository.insertIgnoreOne(CATEGORY_NAME);
+
+        Set<CategoryEntity> allEntities = categoryRepository.findAllByCategoryName(Set.of(CATEGORY_NAME));
+        assertThat(allEntities).isNotNull();
+        assertThat(allEntities).hasSize(1);
+
+        var entity = allEntities.stream().findAny().get();
+        assertThat(entity).isNotNull();
+        assertThat(entity.getCategoryId()).isGreaterThan(0L);
+        assertThat(entity.getCategoryName()).isEqualTo(CATEGORY_NAME);
     }
 
 }

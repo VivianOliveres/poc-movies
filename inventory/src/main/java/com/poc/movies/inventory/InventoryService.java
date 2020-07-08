@@ -1,17 +1,14 @@
 package com.poc.movies.inventory;
 
-import com.google.common.collect.Lists;
 import com.poc.movies.inventory.db.*;
 import com.poc.movies.inventory.exceptions.InsertException;
 import com.poc.movies.inventory.model.Movie;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -44,17 +41,20 @@ public class InventoryService {
                 .collect(toMap(CategoryEntity::getCategoryName, identity()));
 
         // Categories
-        Set<CategoryEntity> categoriesToInsert = movie.getCategories().stream()
+        movie.getCategories().stream()
                 .filter(categoryName -> !categories.containsKey(categoryName))
                 .map(categoryName -> new CategoryEntity(null, categoryName))
-                .collect(Collectors.toSet());
-        List<CategoryEntity> categoriesInserted = Lists.newArrayList(categoryRepo.saveAll(categoriesToInsert));
+                .forEach(categoryEntity -> categoryRepo.insertIgnoreOne(categoryEntity.getCategoryName()));
+
+        Map<String, CategoryEntity> allCategories = categoryRepo.findAllByCategoryName(movie.getCategories())
+                .stream()
+                .collect(toMap(CategoryEntity::getCategoryName, identity()));
 
         // Movie
         movieRepo.insertOne(movie.getId(), movie.getTitle());
 
         // MovieCategory
-        Set<MovieCategoryEntity> movieCategoryToInsert = Stream.concat(categories.values().stream(), categoriesInserted.stream())
+        Set<MovieCategoryEntity> movieCategoryToInsert = allCategories.values().stream()
                 .map(categoryEntity -> new MovieCategoryEntity(null, movie.getId(), categoryEntity.getCategoryId()))
                 .collect(Collectors.toSet());
         movieCategoryRepo.saveAll(movieCategoryToInsert);
