@@ -6,11 +6,13 @@ plugins {
 dependencies {
     implementation 'com.google.guava:guava'
 
-    // Lombock
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    implementation 'org.springframework.data:spring-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     // Tests
     testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -24,5 +26,5 @@ test {
 }
 
 application {
-    mainClassName = 'com.poc.movies.inventory.App'
+    mainClassName = 'com.poc.movies.inventory.InventoryApp'
 }

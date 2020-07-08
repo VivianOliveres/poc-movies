@@ -1,4 +1,6 @@
 plugins {
+    id "io.freefair.lombok" version "5.1.0"
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
     id "io.spring.dependency-management" version "1.0.9.RELEASE"
 }
 
@@ -7,6 +9,8 @@ subprojects {
     version = '1.0'
 
     apply plugin: 'java'
+    apply plugin: 'io.freefair.lombok'
+    apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = 1.11
@@ -30,12 +34,6 @@ subprojects {
 
         dependencies {
             dependency 'com.google.guava:guava:29.0-jre'
-
-            // Lombock
-            dependency 'org.projectlombok:lombok:1.18.12'
-            dependency 'org.projectlombok:lombok:1.18.12'
-            dependency 'org.projectlombok:lombok:1.18.12'
-            dependency 'org.projectlombok:lombok:1.18.12'
 
             // Tests
             dependency 'org.junit.jupiter:junit-jupiter:5.6.2'

@@ -1,2 +1,26 @@
-com/poc/movies/inventory/App.java
- com.poc.movies.inventory.App
+com/poc/movies/inventory/requests/InsertMovieCommand.java
+ com.poc.movies.inventory.requests.InsertMovieCommand
+com/poc/movies/inventory/InventoryService.java
+ com.poc.movies.inventory.InventoryService
+com/poc/movies/inventory/model/Movie.java
+ com.poc.movies.inventory.model.Movie
+com/poc/movies/inventory/db/CategoryRepository.java
+ com.poc.movies.inventory.db.CategoryRepository
+com/poc/movies/inventory/exceptions/InsertException.java
+ com.poc.movies.inventory.exceptions.InsertException
+com/poc/movies/inventory/InventoryController.java
+ com.poc.movies.inventory.InventoryController
+com/poc/movies/inventory/db/CategoryEntity.java
+ com.poc.movies.inventory.db.CategoryEntity
+com/poc/movies/inventory/db/MovieRepository.java
+ com.poc.movies.inventory.db.MovieRepository
+com/poc/movies/inventory/conf/InventoryConfiguration.java
+ com.poc.movies.inventory.conf.InventoryConfiguration
+com/poc/movies/inventory/db/MovieEntity.java
+ com.poc.movies.inventory.db.MovieEntity
+com/poc/movies/inventory/db/MovieCategoryEntity.java
+ com.poc.movies.inventory.db.MovieCategoryEntity
+com/poc/movies/inventory/InventoryApp.java
+ com.poc.movies.inventory.InventoryApp
+com/poc/movies/inventory/db/MovieCategoryRepository.java
+ com.poc.movies.inventory.db.MovieCategoryRepository
