@@ -3,25 +3,30 @@ package com.poc.movies.loader.inventory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.Lists;
 import com.poc.movies.loader.HttpUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class MainMovieLoader {
 
     private static final int THREAD_POOL_SIZE = 20;
+    private static final int BATCH_SIZE = 100;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         if (args == null || args.length != 2) {
@@ -42,23 +47,23 @@ public class MainMovieLoader {
         System.out.println("Reading movies from [" + fileName + "] and POST to [" + baseUrl + "]");
 
         Path path = Paths.get(fileName);
-        List<String> lines = Files.readAllLines(path);
-        System.out.println("Found " + (lines.size() - 1) + " movies to import");
+        List<MovieDescriptor> movieDescriptors = Files.readAllLines(path).stream()
+                .skip(1) // First line is header
+                .map(this::extractMovie)
+                .collect(toList());
+        List<String> moviesAsJson = Lists.partition(movieDescriptors, BATCH_SIZE).stream()
+                .flatMap(desc -> toJson(desc).stream())
+                .collect(toList());
+        System.out.println("Found " + moviesAsJson.size() * BATCH_SIZE + " movies to import");
 
         ExecutorService executors = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         AtomicInteger counter = new AtomicInteger(0);
-        List<CompletableFuture<Void>> tasks = new ArrayList<>();
-        // First line is header
-        for (int i = 1; i < lines.size(); i++) {
-            String csvLine = lines.get(i);
-            MovieDescriptor desc = extractMovie(csvLine);
-            String json = mapper.writeValueAsString(desc);
+        List<CompletableFuture<Void>> tasks = moviesAsJson.stream()
+                .map(json -> CompletableFuture.supplyAsync(() -> doPost(baseUrl, json), executors))
+                .map(future -> future.thenRun(() -> doLogHttpCall(counter, moviesAsJson.size())))
+                .collect(toList());
 
-            CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> doPost(baseUrl, json), executors);
-            CompletableFuture<Void> task = future.thenRun(() -> doLogHttpCall(counter, lines.size() - 1));
-            tasks.add(task);
-        }
-
+        // Wait until they are all executed
         CompletableFuture.allOf(tasks.toArray(new CompletableFuture[]{})).join();
 
         System.out.println("Done in [" + sw.elapsed(TimeUnit.SECONDS) + "]s");
@@ -88,8 +93,14 @@ public class MainMovieLoader {
         return new MovieDescriptor(id, title, genres);
     }
 
-    protected String toJson(MovieDescriptor desc) throws JsonProcessingException {
-        return mapper.writeValueAsString(desc);
+    protected Optional<String> toJson(List<MovieDescriptor> descs) {
+        try {
+            return Optional.of(mapper.writeValueAsString(descs));
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     private String doPost(String baseUrl, String json) {
@@ -104,9 +115,7 @@ public class MainMovieLoader {
 
     private void doLogHttpCall(AtomicInteger counter, int moviesSize) {
         int count = counter.incrementAndGet();
-        if (count % 1000 == 0) {
-            System.out.println("POSTed " + count + " / " + moviesSize);
-        }
+        System.out.println("POSTed " + count + " / " + moviesSize);
     }
 
 }
