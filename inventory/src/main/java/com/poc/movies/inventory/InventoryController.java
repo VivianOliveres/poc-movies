@@ -9,6 +9,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
+@RequestMapping("/inventory")
 public class InventoryController {
 
     private InventoryService service;
@@ -17,18 +18,18 @@ public class InventoryController {
         this.service = service;
     }
 
-    @GetMapping("/inventory/movie/{id}")
+    @GetMapping("/movie/{id}")
     public Movie getById(@PathVariable long id) {
         return service.getByMovieId(id);
     }
 
-    @PostMapping("/inventory/movie")
+    @PostMapping("/movie")
     public void insertOne(@RequestBody InsertMovieCommand dto) {
         Movie movie = new Movie(dto.getId(), dto.getTitle(), dto.getGenres());
         service.insert(movie);
     }
 
-    @PostMapping("/inventory/movies")
+    @PostMapping("/movies")
     public void insertMany(@RequestBody List<InsertMovieCommand> cmd) {
         List<Movie> movies = cmd.stream()
                 .map(dto -> new Movie(dto.getId(), dto.getTitle(), dto.getGenres()))
@@ -36,7 +37,7 @@ public class InventoryController {
         service.insert(movies);
     }
 
-    @GetMapping("/inventory/movies")
+    @GetMapping("/movies")
     public List<Movie> getMany(@RequestBody List<Long> ids) {
         return service.getByMovieIds(ids);
     }
