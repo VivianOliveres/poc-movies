@@ -14,5 +14,5 @@ public class InsertMovieCommand {
     String title;
 
     @Nonnull
-    Set<String> genres;
+    Set<String> categories;
 }

@@ -56,4 +56,31 @@ public class InventoryServiceTest {
         assertThat(returnedMovies).containsOnly(movie1, movie2);
     }
 
+    @Test
+    public void should_insert_then_update_movie() {
+        // GIVEN: movie inserted
+        Movie movie = new Movie(1L, "Toy Story (1995)", Set.of("Adventure", "Animation", "Children", "Comedy", "Fantasy"));
+        service.insert(List.of(movie));
+
+        Movie returnedMovie = service.getByMovieId(movie.getId());
+        assertThat(returnedMovie).isEqualTo(movie);
+
+        // WHEN: update title
+        Movie movieWithTitleUpdated = movie.withTitle("Toy Story");
+        service.update(movieWithTitleUpdated);
+
+        // THEN: title is updated
+        returnedMovie = service.getByMovieId(movie.getId());
+        assertThat(returnedMovie).isEqualTo(movieWithTitleUpdated);
+
+        // WHEN: update category
+        Movie movieWithCategoriesUpdated = movieWithTitleUpdated.withCategories(Set.of("Animation", "Children", "Comedy", "Fantasy"));
+        service.update(movieWithCategoriesUpdated);
+
+        // THEN: title and categories are updated
+        returnedMovie = service.getByMovieId(movie.getId());
+        assertThat(returnedMovie.getTitle()).isEqualTo(movieWithTitleUpdated.getTitle());
+        assertThat(returnedMovie.getCategories()).isEqualTo(movieWithCategoriesUpdated.getCategories());
+    }
+
 }

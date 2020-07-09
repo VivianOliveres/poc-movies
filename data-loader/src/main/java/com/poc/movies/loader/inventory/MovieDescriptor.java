@@ -8,5 +8,5 @@ import java.util.Set;
 public class MovieDescriptor {
     long id;
     String title;
-    Set<String> genres;
+    Set<String> categories;
 }

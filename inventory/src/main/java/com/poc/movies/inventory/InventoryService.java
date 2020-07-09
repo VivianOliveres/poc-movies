@@ -3,7 +3,6 @@ package com.poc.movies.inventory;
 import com.google.common.collect.Lists;
 import com.poc.movies.inventory.db.*;
 import com.poc.movies.inventory.model.Movie;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,39 +31,18 @@ public class InventoryService {
 
     public void insert(List<Movie> movies) {
         // Categories
-        Set<String> categoryNames = movies.stream().flatMap(movie -> movie.getCategories().stream()).collect(toSet());
-        Map<String, CategoryEntity> categoriesByName = getAndInsertCategories(categoryNames);
+        Map<String, CategoryEntity> categoriesByName = doInsertCategories(movies);
 
         // Movies
-        movies.forEach(movie -> {
-            try {
-                movieRepo.insertOne(movie.getId(), movie.getTitle());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        doInsertMovies(movies);
 
         // MovieCategory
-        Set<MovieCategoryEntity> movieCategoryToInsert = movies.stream()
-                .flatMap(movie -> movie.getCategories().stream().map(categoryName -> new MovieCategoryEntity(null, movie.getId(), categoriesByName.get(categoryName).getCategoryId())))
-                .collect(toSet());
-        movieCategoryRepo.saveAll(movieCategoryToInsert);
+        doInsertMovieCategories(movies, categoriesByName);
     }
 
-    private Movie doInsert(Movie movie) throws DataAccessException {
-        // Categories
-        Map<String, CategoryEntity> categories = getAndInsertCategories(movie.getCategories());
-
-        // Movie
-        movieRepo.insertOne(movie.getId(), movie.getTitle());
-
-        // MovieCategory
-        Set<MovieCategoryEntity> movieCategoryToInsert = categories.values().stream()
-                .map(categoryEntity -> new MovieCategoryEntity(null, movie.getId(), categoryEntity.getCategoryId()))
-                .collect(toSet());
-        movieCategoryRepo.saveAll(movieCategoryToInsert);
-
-        return movie;
+    private Map<String, CategoryEntity> doInsertCategories(List<Movie> movies) {
+        Set<String> categoryNames = movies.stream().flatMap(movie -> movie.getCategories().stream()).collect(toSet());
+        return getAndInsertCategories(categoryNames);
     }
 
     private Map<String, CategoryEntity> getAndInsertCategories(Set<String> categoryNames) {
@@ -81,6 +59,23 @@ public class InventoryService {
         return categoryRepo.findAllByCategoryName(categoryNames)
                 .stream()
                 .collect(toMap(CategoryEntity::getCategoryName, identity()));
+    }
+
+    private void doInsertMovies(List<Movie> movies) {
+        movies.forEach(movie -> {
+            try {
+                movieRepo.insertOne(movie.getId(), movie.getTitle());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void doInsertMovieCategories(List<Movie> movies, Map<String, CategoryEntity> categoriesByName) {
+        Set<MovieCategoryEntity> movieCategoryToInsert = movies.stream()
+                .flatMap(movie -> movie.getCategories().stream().map(categoryName -> new MovieCategoryEntity(null, movie.getId(), categoriesByName.get(categoryName).getCategoryId())))
+                .collect(toSet());
+        movieCategoryRepo.saveAll(movieCategoryToInsert);
     }
 
     public Movie getByMovieId(long id) {
@@ -101,5 +96,27 @@ public class InventoryService {
                 .map(CategoryEntity::getCategoryName)
                 .collect(toSet());
         return new Movie(movieEntity.getMovieId(), movieEntity.getTitle(), categories);
+    }
+
+    public void update(Movie movie) {
+        // Categories
+        Map<String, CategoryEntity> categoriesByName = doInsertCategories(List.of(movie));
+
+        // Movies
+        MovieEntity movieEntity = new MovieEntity(movie.getId(), movie.getTitle());
+        movieRepo.save(movieEntity);
+
+        // MovieCategory
+        doUpdateMovieCategories(movie, categoriesByName);
+    }
+
+    private void doUpdateMovieCategories(Movie movie, Map<String, CategoryEntity> categoriesByName) {
+        movieCategoryRepo.deleteByMovieId(movie.getId());
+
+        var movieCategoryToInsert = movie.getCategories().stream()
+                .map(categoryName -> new MovieCategoryEntity(null, movie.getId(), categoriesByName.get(categoryName).getCategoryId()))
+                .collect(toSet());
+
+        movieCategoryRepo.saveAll(movieCategoryToInsert);
     }
 }

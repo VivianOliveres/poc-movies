@@ -1,6 +1,7 @@
 package com.poc.movies.inventory.model;
 
 import lombok.Value;
+import lombok.With;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
@@ -13,9 +14,11 @@ public class Movie {
     @Nonnull
     Long id;
 
+    @With
     @Nonnull
     String title;
 
+    @With
     @Nonnull
     Set<String> categories;
 

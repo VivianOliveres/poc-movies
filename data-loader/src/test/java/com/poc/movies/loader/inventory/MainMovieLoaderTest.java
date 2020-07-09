@@ -17,7 +17,7 @@ public class MainMovieLoaderTest {
         assertThat(desc).isNotNull();
         assertThat(desc.getId()).isEqualTo(1L);
         assertThat(desc.getTitle()).isEqualTo("Toy Story (1995)");
-        assertThat(desc.getGenres()).containsOnly("Adventure", "Animation", "Children", "Comedy", "Fantasy");
+        assertThat(desc.getCategories()).containsOnly("Adventure", "Animation", "Children", "Comedy", "Fantasy");
     }
 
     @Test
@@ -29,7 +29,7 @@ public class MainMovieLoaderTest {
         assertThat(desc).isNotNull();
         assertThat(desc.getId()).isEqualTo(3364L);
         assertThat(desc.getTitle()).isEqualTo("Asphalt Jungle, The (1950)");
-        assertThat(desc.getGenres()).containsOnly("Crime", "Film-Noir");
+        assertThat(desc.getCategories()).containsOnly("Crime", "Film-Noir");
     }
 
     @Test
@@ -41,6 +41,6 @@ public class MainMovieLoaderTest {
         assertThat(desc).isNotNull();
         assertThat(desc.getId()).isEqualTo(104091L);
         assertThat(desc.getTitle()).isEqualTo("Devil's Nightmare, The (Plus longue nuit du diable, La) (1971)");
-        assertThat(desc.getGenres()).containsOnly("Fantasy", "Horror");
+        assertThat(desc.getCategories()).containsOnly("Fantasy", "Horror");
     }
 }
