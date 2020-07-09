@@ -1,6 +1,0 @@
-com/poc/movies/loader/HttpUtils.java
- com.poc.movies.loader.HttpUtils
-com/poc/movies/loader/inventory/MovieDescriptor.java
- com.poc.movies.loader.inventory.MovieDescriptor
-com/poc/movies/loader/inventory/MainMovieLoader.java
- com.poc.movies.loader.inventory.MainMovieLoader

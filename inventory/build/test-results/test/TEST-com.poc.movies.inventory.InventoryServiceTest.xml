@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.poc.movies.inventory.InventoryServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-07-08T16:37:20" hostname="Dojo" time="0.3">
-  <properties/>
-  <testcase name="should_not_update_existing_by_inserting_a_new_one" classname="com.poc.movies.inventory.InventoryServiceTest" time="0.186"/>
-  <testcase name="should_insert_then_getById_movie" classname="com.poc.movies.inventory.InventoryServiceTest" time="0.113"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
