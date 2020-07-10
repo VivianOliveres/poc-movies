@@ -33,6 +33,8 @@ subprojects {
         }
 
         dependencies {
+            dependency 'ch.qos.logback:logback-classic:1.1.7'
+
             dependency 'com.google.guava:guava:29.0-jre'
 
             dependency 'com.squareup.okhttp3:okhttp:4.7.2'

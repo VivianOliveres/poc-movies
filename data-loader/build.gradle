@@ -4,12 +4,17 @@ plugins {
 }
 
 dependencies {
+    implementation 'ch.qos.logback:logback-classic'
+
     implementation 'com.google.guava:guava'
 
     implementation 'com.squareup.okhttp3:okhttp'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    testImplementation 'org.springframework.batch:spring-batch-test'
 
     // Tests
     testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -23,5 +28,5 @@ test {
 }
 
 application {
-    mainClassName = 'com.poc.movies.loader.inventory.MainMovieLoader'
+    mainClassName = 'com.poc.movies.loader.inventory.MainInventoryLoader'
 }

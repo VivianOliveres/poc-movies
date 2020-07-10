@@ -1,0 +1,4 @@
+com/poc/movies/batch/inventory/engine/MovieDescriptorLineMapperTest.java
+ com.poc.movies.batch.inventory.engine.MovieDescriptorLineMapperTest
+com/poc/movies/batch/inventory/engine/MovieDescriptorProcessorTest.java
+ com.poc.movies.batch.inventory.engine.MovieDescriptorProcessorTest

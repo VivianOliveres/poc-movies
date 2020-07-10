@@ -1,4 +1,4 @@
 rootProject.name = 'poc-movies'
 
 include 'inventory'
-include 'data-loader'
+include 'batch-inventory'

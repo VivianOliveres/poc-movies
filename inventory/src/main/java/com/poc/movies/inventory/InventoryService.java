@@ -1,8 +1,12 @@
 package com.poc.movies.inventory;
 
 import com.google.common.collect.Lists;
-import com.poc.movies.inventory.db.*;
+import com.poc.movies.inventory.db.CategoryEntity;
+import com.poc.movies.inventory.db.CategoryRepository;
+import com.poc.movies.inventory.db.MovieEntity;
+import com.poc.movies.inventory.db.MovieFacadeRepository;
 import com.poc.movies.inventory.model.Movie;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +19,12 @@ import static java.util.stream.Collectors.*;
 @Service
 public class InventoryService {
 
-    private MovieRepository movieRepo;
+    private MovieFacadeRepository movieFacadeRepository;
     private CategoryRepository categoryRepo;
-    private MovieCategoryRepository movieCategoryRepo;
 
-    public InventoryService(MovieRepository movieRepo, CategoryRepository categoryRepo, MovieCategoryRepository movieCategoryRepo) {
-        this.movieRepo = movieRepo;
+    public InventoryService(CategoryRepository categoryRepo, MovieFacadeRepository movieFacadeRepository) {
         this.categoryRepo = categoryRepo;
-        this.movieCategoryRepo = movieCategoryRepo;
+        this.movieFacadeRepository = movieFacadeRepository;
     }
 
     public void insert(Movie movie) {
@@ -33,27 +35,29 @@ public class InventoryService {
         // Categories
         Map<String, CategoryEntity> categoriesByName = doInsertCategories(movies);
 
-        // Movies
-        doInsertMovies(movies);
-
-        // MovieCategory
-        doInsertMovieCategories(movies, categoriesByName);
+        // Movie and MovieCategory
+        doInsertMovies(movies, categoriesByName);
     }
 
     private Map<String, CategoryEntity> doInsertCategories(List<Movie> movies) {
         Set<String> categoryNames = movies.stream().flatMap(movie -> movie.getCategories().stream()).collect(toSet());
-        return getAndInsertCategories(categoryNames);
-    }
 
-    private Map<String, CategoryEntity> getAndInsertCategories(Set<String> categoryNames) {
         Map<String, CategoryEntity> categories = categoryRepo.findAllByCategoryName(categoryNames)
                 .stream()
                 .collect(toMap(CategoryEntity::getCategoryName, identity()));
 
-        // Categories
-        categoryNames.stream()
+        // Insert categories that does not already exists
+        List<CategoryEntity> categoryEntitiesToInsert = categoryNames.stream()
                 .filter(categoryName -> !categories.containsKey(categoryName))
                 .map(categoryName -> new CategoryEntity(null, categoryName))
+                .collect(toList());
+        if (categoryEntitiesToInsert.isEmpty()) {
+            // No category needs to be created
+            return categories;
+        }
+
+        // Insert categories missing
+        categoryEntitiesToInsert
                 .forEach(categoryEntity -> categoryRepo.insertIgnoreOne(categoryEntity.getCategoryName()));
 
         return categoryRepo.findAllByCategoryName(categoryNames)
@@ -61,31 +65,29 @@ public class InventoryService {
                 .collect(toMap(CategoryEntity::getCategoryName, identity()));
     }
 
-    private void doInsertMovies(List<Movie> movies) {
+    private void doInsertMovies(List<Movie> movies, Map<String, CategoryEntity> categoriesByName) {
         movies.forEach(movie -> {
             try {
-                movieRepo.insertOne(movie.getId(), movie.getTitle());
-            } catch (Exception e) {
+                List<Long> categoryIds = movie.getCategories().stream()
+                        .map(categoriesByName::get)
+                        .map(CategoryEntity::getCategoryId)
+                        .collect(toList());
+                movieFacadeRepository.insert(movie.getId(), movie.getTitle(), categoryIds);
+
+            } catch (DataAccessException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private void doInsertMovieCategories(List<Movie> movies, Map<String, CategoryEntity> categoriesByName) {
-        Set<MovieCategoryEntity> movieCategoryToInsert = movies.stream()
-                .flatMap(movie -> movie.getCategories().stream().map(categoryName -> new MovieCategoryEntity(null, movie.getId(), categoriesByName.get(categoryName).getCategoryId())))
-                .collect(toSet());
-        movieCategoryRepo.saveAll(movieCategoryToInsert);
-    }
-
     public Movie getByMovieId(long id) {
-        return movieRepo.findById(id)
+        return movieFacadeRepository.findById(id)
                 .map(this::mapToModel)
                 .orElseThrow(() -> new IllegalArgumentException("Movie [" + id + "] does not exist"));
     }
 
     public List<Movie> getByMovieIds(List<Long> ids) {
-        return Lists.newArrayList(movieRepo.findAllById(ids))
+        return Lists.newArrayList(movieFacadeRepository.findAllById(ids))
                 .stream()
                 .map(this::mapToModel)
                 .collect(toList());
@@ -103,20 +105,10 @@ public class InventoryService {
         Map<String, CategoryEntity> categoriesByName = doInsertCategories(List.of(movie));
 
         // Movies
-        MovieEntity movieEntity = new MovieEntity(movie.getId(), movie.getTitle());
-        movieRepo.save(movieEntity);
-
-        // MovieCategory
-        doUpdateMovieCategories(movie, categoriesByName);
-    }
-
-    private void doUpdateMovieCategories(Movie movie, Map<String, CategoryEntity> categoriesByName) {
-        movieCategoryRepo.deleteByMovieId(movie.getId());
-
-        var movieCategoryToInsert = movie.getCategories().stream()
-                .map(categoryName -> new MovieCategoryEntity(null, movie.getId(), categoriesByName.get(categoryName).getCategoryId()))
-                .collect(toSet());
-
-        movieCategoryRepo.saveAll(movieCategoryToInsert);
+        List<Long> categoryIds = movie.getCategories().stream()
+                .map(categoriesByName::get)
+                .map(CategoryEntity::getCategoryId)
+                .collect(toList());
+        movieFacadeRepository.update(movie.getId(), movie.getTitle(), categoryIds);
     }
 }

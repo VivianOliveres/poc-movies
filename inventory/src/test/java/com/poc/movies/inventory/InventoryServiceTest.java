@@ -37,7 +37,10 @@ public class InventoryServiceTest {
         service.insert(movie1);
 
         Movie movie2 = new Movie(1L, "Jumanji (1995)", Set.of("Adventure", "Children", "Fantasy"));
-        assertThrows(Exception.class, () -> service.insert(movie2));
+        service.insert(movie2);
+
+        Movie returnedMovie = service.getByMovieId(1L);
+        assertThat(returnedMovie).isEqualTo(movie1);
     }
 
     @Test

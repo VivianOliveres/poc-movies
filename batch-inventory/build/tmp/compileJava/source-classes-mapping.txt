@@ -1,0 +1,18 @@
+com/poc/movies/batch/inventory/engine/MovieDescriptorRestWriter.java
+ com.poc.movies.batch.inventory.engine.MovieDescriptorRestWriter
+com/poc/movies/batch/inventory/HttpUtils.java
+ com.poc.movies.batch.inventory.HttpUtils
+com/poc/movies/batch/inventory/engine/ItemFailureLoggerListener.java
+ com.poc.movies.batch.inventory.engine.ItemFailureLoggerListener
+com/poc/movies/batch/inventory/model/MovieDescriptor.java
+ com.poc.movies.batch.inventory.model.MovieDescriptor
+com/poc/movies/batch/inventory/engine/MovieDescriptorRestChecker.java
+ com.poc.movies.batch.inventory.engine.MovieDescriptorRestChecker
+com/poc/movies/batch/inventory/engine/MovieDescriptorLineMapper.java
+ com.poc.movies.batch.inventory.engine.MovieDescriptorLineMapper
+com/poc/movies/batch/inventory/InventoryLoaderConfig.java
+ com.poc.movies.batch.inventory.InventoryLoaderConfig
+com/poc/movies/batch/inventory/MainInventoryLoaderApp.java
+ com.poc.movies.batch.inventory.MainInventoryLoaderApp
+com/poc/movies/batch/inventory/engine/MovieDescriptorProcessor.java
+ com.poc.movies.batch.inventory.engine.MovieDescriptorProcessor
