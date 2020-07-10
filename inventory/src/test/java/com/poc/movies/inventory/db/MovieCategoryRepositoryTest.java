@@ -5,9 +5,7 @@ import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
@@ -17,17 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {InventoryApp.class})
-@Sql(scripts = {"/data-mysql.sql"})
-public class MovieCategoryRepositoryTest {
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private MovieCategoryRepository movieCategoryRepository;
-
-    @Autowired
-    private MovieRepository movieRepo;
+public class MovieCategoryRepositoryTest extends AbstractRepositoryTest {
 
     private static final MovieEntity MOVIE = new MovieEntity(1, "The Fellowship of the Ring");
 
@@ -35,21 +23,19 @@ public class MovieCategoryRepositoryTest {
 
     @Before
     public void before() {
-        movieCategoryRepository.deleteAll();
+        super.before();
+
         assertThat(movieCategoryRepository.count()).isZero();
 
-        movieRepo.deleteAll();
-        movieRepo.insertOne(MOVIE.getMovieId(), MOVIE.getTitle());
-        assertThat(movieRepo.count()).isEqualTo(1);
-        assertThat(movieRepo.findById(MOVIE.getMovieId())).isEqualTo(Optional.of(MOVIE));
+        movieRepository.insertOne(MOVIE.getMovieId(), MOVIE.getTitle());
+        assertThat(movieRepository.count()).isEqualTo(1);
+        assertThat(movieRepository.findById(MOVIE.getMovieId())).isEqualTo(Optional.of(MOVIE));
 
-        categoryRepository.deleteAll();
         categoryRepository.insertIgnoreOne(CATEGORY.getCategoryName());
         CATEGORY = categoryRepository.findByCategoryName(CATEGORY.getCategoryName());
         assertThat(categoryRepository.count()).isEqualTo(1);
         assertThat(categoryRepository.findById(CATEGORY.getCategoryId())).isEqualTo(Optional.of(CATEGORY));
     }
-
 
     @Test
     public void should_insert_entity() {
