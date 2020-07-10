@@ -5,6 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import com.poc.movies.loader.HttpUtils;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,26 +27,37 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.stream.Collectors.toList;
 
+@SpringBootApplication
 public class MainMovieLoader {
 
     private static final int THREAD_POOL_SIZE = 20;
     private static final int BATCH_SIZE = 100;
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        if (args == null || args.length != 2) {
-            System.err.println("Invalid arguments");
-            System.err.println("Usage: MainMovieLoader <movies.csv file> <url to post>");
-            System.exit(1);
-        }
-
-        String fileName = args[0];
-        String url = args[1];
-        new MainMovieLoader().run(fileName, url);
-    }
-
     private final ObjectMapper mapper = new ObjectMapper();
 
-    private void run(String fileName, String baseUrl) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        new SpringApplicationBuilder(MainMovieLoader.class).web(WebApplicationType.NONE).run(args);
+    }
+
+    @Component
+    public class CommandLiner implements CommandLineRunner {
+        @Override
+        public void run(String... args) throws Exception {
+            if (args == null || args.length != 2) {
+                System.err.println("Invalid arguments");
+                System.err.println("Found:" + Arrays.toString(args));
+                System.err.println("Usage: MainMovieLoader <movies.csv file> <url to post>");
+                System.err.println("Example: MainMovieLoader movies.csv http://localhost:8080/inventory/movies");
+                System.exit(1);
+            }
+
+            String fileName = args[0];
+            String url = args[1];
+            doRun(fileName, url);
+        }
+    }
+
+    private void doRun(String fileName, String baseUrl) throws IOException, InterruptedException {
         Stopwatch sw = Stopwatch.createStarted();
         System.out.println("Reading movies from [" + fileName + "] and POST to [" + baseUrl + "]");
 

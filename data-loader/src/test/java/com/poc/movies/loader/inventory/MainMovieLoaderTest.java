@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainMovieLoaderTest {
 
-    private MainMovieLoader loader = new MainMovieLoader();
+    private final MainMovieLoader loader = new MainMovieLoader();
 
     @Test
     public void should_extract_movie_from_regular_csv_line() {

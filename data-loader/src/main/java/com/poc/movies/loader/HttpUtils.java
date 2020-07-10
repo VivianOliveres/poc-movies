@@ -27,11 +27,10 @@ public final class HttpUtils {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-//                System.out.println(response.code() + ": " + url + " -> " + json);
-            } else {
+            if (!response.isSuccessful()) {
                 System.err.println(response.code() + ": " + url + " -> " + json);
             }
+
             return response.body().string();
         }
     }

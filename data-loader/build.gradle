@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 dependencies {
@@ -19,4 +20,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    mainClassName = 'com.poc.movies.loader.inventory.MainMovieLoader'
 }
