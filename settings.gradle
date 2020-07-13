@@ -2,3 +2,5 @@ rootProject.name = 'poc-movies'
 
 include 'inventory'
 include 'batch-inventory'
+
+include 'links'

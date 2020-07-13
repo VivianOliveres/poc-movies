@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.poc.movies.links.LinksServiceTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2020-07-13T13:24:34" hostname="Dojo" time="0.81">
+  <properties/>
+  <testcase name="should_update_imbd_to_new_value" classname="com.poc.movies.links.LinksServiceTest" time="0.344"/>
+  <testcase name="should_insert_many_links_then_retrieve_them_all" classname="com.poc.movies.links.LinksServiceTest" time="0.071"/>
+  <testcase name="should_insert_bulk_links_then_retrieve_them_all" classname="com.poc.movies.links.LinksServiceTest" time="0.041"/>
+  <testcase name="should_deleteOne" classname="com.poc.movies.links.LinksServiceTest" time="0.057"/>
+  <testcase name="should_getOne_return_empty_for_unknown_movieId" classname="com.poc.movies.links.LinksServiceTest" time="0.007"/>
+  <testcase name="should_update_imbd_to_null" classname="com.poc.movies.links.LinksServiceTest" time="0.049"/>
+  <testcase name="should_update_tmbd_to_new_value" classname="com.poc.movies.links.LinksServiceTest" time="0.038"/>
+  <testcase name="should_retrieve_tmdb_links" classname="com.poc.movies.links.LinksServiceTest" time="0.024"/>
+  <testcase name="should_insert_link" classname="com.poc.movies.links.LinksServiceTest" time="0.023"/>
+  <testcase name="should_update_tmbd_to_null" classname="com.poc.movies.links.LinksServiceTest" time="0.044"/>
+  <testcase name="should_getOne_return_links" classname="com.poc.movies.links.LinksServiceTest" time="0.023"/>
+  <testcase name="should_deleteBulk" classname="com.poc.movies.links.LinksServiceTest" time="0.048"/>
+  <testcase name="should_update_return_empty_for_unknown_movieId" classname="com.poc.movies.links.LinksServiceTest" time="0.018"/>
+  <testcase name="should_retrieve_imdb_links" classname="com.poc.movies.links.LinksServiceTest" time="0.014"/>
+  <system-out><![CDATA[15:24:32.964 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.poc.movies.links.LinksServiceTest]
+15:24:32.964 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.poc.movies.links.LinksServiceTest]
+15:24:32.965 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.poc.movies.links.LinksServiceTest]
+15:24:32.965 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.poc.movies.links.LinksServiceTest]
+15:24:32.968 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@549bdd8e testClass = LinksServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@2c03fc7a testClass = LinksServiceTest, locations = '{}', classes = '{class com.poc.movies.links.LinksApp, class com.poc.movies.links.LinksApp}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4607e959, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@2b2561f8, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@56027755, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@66d9d37c, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+15:24:32.969 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.poc.movies.links.LinksServiceTest]
+15:24:32.969 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.poc.movies.links.LinksServiceTest]
+15:24:32.982 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.1.RELEASE)
+
+2020-07-13 15:24:33.173  INFO 27032 --- [    Test worker] com.poc.movies.links.LinksServiceTest    : Starting LinksServiceTest on Dojo with PID 27032 (started by kensai in /home/kensai/git/poc-movies/links)
+2020-07-13 15:24:33.174  INFO 27032 --- [    Test worker] com.poc.movies.links.LinksServiceTest    : No active profile set, falling back to default profiles: default
+2020-07-13 15:24:33.881  INFO 27032 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-07-13 15:24:34.113  INFO 27032 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-07-13 15:24:34.536  INFO 27032 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-07-13 15:24:34.746  INFO 27032 --- [    Test worker] com.poc.movies.links.LinksServiceTest    : Started LinksServiceTest in 1.759 seconds (JVM running for 2.386)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
