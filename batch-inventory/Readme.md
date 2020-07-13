@@ -11,4 +11,4 @@ It will perform a bulk POST to the service. Example of call:
     ./gradlew batch-inventory:build
 
     # Start it
-    java -jar batch-inventory/build/libs/batch-inventory-1.0.jar movies.csv http://localhost:8080
+    java -jar batch-inventory/build/libs/batch-inventory-1.0.jar movies.csv http://localhost:8081

@@ -5,6 +5,8 @@ logging:
     org.springframework.jdbc.core.JdbcTemplate: ERROR
     com.poc.movies.inventory: INFO
 
+server.port: 8081
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
