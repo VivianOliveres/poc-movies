@@ -1,6 +1,7 @@
 package com.poc.movies.links.db;
 
 import com.poc.movies.links.model.MovieLinks;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
+@Slf4j
 @Repository
 public class LinkFacadeRepository {
 
@@ -25,14 +27,24 @@ public class LinkFacadeRepository {
 
     @Transactional
     public MovieLinks save(MovieLinks links) {
+        //TODO
+        if (links.getMovieId() == 1533) log.info("save {}", links);
+
         long movieId = links.getMovieId();
         if (links.getImdbId() != null) {
             imdbRepo.insertIgnoreOne(movieId, links.getImdbId());
         }
         if (links.getTmdbId() != null) {
-            tmdbRepo.insertIgnoreOne(movieId, links.getTmdbId());
+            var lines = tmdbRepo.insertIgnoreOne(movieId, links.getTmdbId());
+            if (links.getMovieId() == 1533) log.info("saved {} lines with tmdb[{}]", lines, links.getTmdbId());
         }
         return findByMovieId(movieId).get();
+    }
+
+    @Transactional
+    public List<MovieLinks> saveAll(List<MovieLinks> links) {
+        links.forEach(this::save);
+        return findAllByMovieIds(links.stream().map(MovieLinks::getMovieId).collect(toList()));
     }
 
     @Transactional
@@ -100,12 +112,6 @@ public class LinkFacadeRepository {
 
     public Optional<Long> findTmdb(long movieId) {
         return tmdbRepo.findById(movieId).map(TmdbEntity::getTmdbId);
-    }
-
-    @Transactional
-    public List<MovieLinks> saveAll(List<MovieLinks> links) {
-        links.forEach(this::save);
-        return findAllByMovieIds(links.stream().map(MovieLinks::getMovieId).collect(toList()));
     }
 
     @Transactional

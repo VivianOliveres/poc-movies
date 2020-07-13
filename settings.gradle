@@ -4,3 +4,4 @@ include 'inventory'
 include 'batch-inventory'
 
 include 'links'
+include 'batch-links'

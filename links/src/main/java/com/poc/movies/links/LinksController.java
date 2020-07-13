@@ -37,14 +37,14 @@ public class LinksController {
     @PostMapping("/link")
     @ResponseStatus(HttpStatus.CREATED)
     public MovieLinks insertOne(@RequestBody InsertAllLinks request){
-        MovieLinks links = new MovieLinks(request.getMovieId(), request.getImdb(), request.getTmdb());
+        MovieLinks links = new MovieLinks(request.getMovieId(), request.getImdbId(), request.getTmdbId());
         return service.insertOne(links);
     }
 
     @PutMapping("/link")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public MovieLinks updateOne(@RequestBody InsertAllLinks request){
-        MovieLinks links = new MovieLinks(request.getMovieId(), request.getImdb(), request.getTmdb());
+        MovieLinks links = new MovieLinks(request.getMovieId(), request.getImdbId(), request.getTmdbId());
         Optional<MovieLinks> maybeUpdatedLinks = service.updateOne(links);
         return maybeUpdatedLinks.orElseThrow(() -> new IllegalArgumentException("Unknown movieId[" + request.getMovieId() + "]"));
     }
@@ -70,7 +70,7 @@ public class LinksController {
     @PostMapping("/links")
     @ResponseStatus(HttpStatus.CREATED)
     public List<MovieLinks> insertBulk(@RequestBody List<InsertAllLinks> requests){
-        var linksToInsert = requests.stream().map(request -> new MovieLinks(request.getMovieId(), request.getImdb(), request.getTmdb())).collect(toList());
+        var linksToInsert = requests.stream().map(request -> new MovieLinks(request.getMovieId(), request.getImdbId(), request.getTmdbId())).collect(toList());
         return service.insertBulk(linksToInsert);
     }
 

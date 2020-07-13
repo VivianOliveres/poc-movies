@@ -7,7 +7,7 @@ public class InsertAllLinks {
 
     long movieId;
 
-    String imdb;
+    String imdbId;
 
-    Long tmdb;
+    Long tmdbId;
 }
