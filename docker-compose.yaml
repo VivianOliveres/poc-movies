@@ -26,3 +26,16 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_USER: me
       MYSQL_PASSWORD: 123
+
+  movies_ratings_db:
+    image: mysql:latest
+    volumes:
+      - ./_infra/init_ratings.sql:/docker-entrypoint-initdb.d/init_ratings.sql:ro
+    restart: always
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_DATABASE: ratings
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: me
+      MYSQL_PASSWORD: 123

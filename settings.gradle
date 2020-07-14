@@ -5,3 +5,5 @@ include 'batch-inventory'
 
 include 'links'
 include 'batch-links'
+
+include 'ratings'

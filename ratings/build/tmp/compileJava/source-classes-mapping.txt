@@ -1,0 +1,14 @@
+com/poc/movies/ratings/db/RatingRepository.java
+ com.poc.movies.ratings.db.RatingRepository
+com/poc/movies/ratings/commands/InsertRatingCommand.java
+ com.poc.movies.ratings.commands.InsertRatingCommand
+com/poc/movies/ratings/RatingsApp.java
+ com.poc.movies.ratings.RatingsApp
+com/poc/movies/ratings/db/RatingEntity.java
+ com.poc.movies.ratings.db.RatingEntity
+com/poc/movies/ratings/model/Rating.java
+ com.poc.movies.ratings.model.Rating
+com/poc/movies/ratings/RatingsController.java
+ com.poc.movies.ratings.RatingsController
+com/poc/movies/ratings/RatingsService.java
+ com.poc.movies.ratings.RatingsService

@@ -1,0 +1,2 @@
+com/poc/movies/ratings/RatingsServiceTest.java
+ com.poc.movies.ratings.RatingsServiceTest
