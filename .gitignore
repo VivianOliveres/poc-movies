@@ -2,7 +2,10 @@
 .gradle
 /build/
 inventory/build/
-data-loader/build/
+batch-inventory/build/
+links/build/
+batch-links/build/
+ratings/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
