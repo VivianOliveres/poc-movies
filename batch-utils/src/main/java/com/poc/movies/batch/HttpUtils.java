@@ -1,5 +1,4 @@
-package com.poc.movies.batch.links;
-
+package com.poc.movies.batch;
 
 import okhttp3.*;
 

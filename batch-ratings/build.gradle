@@ -4,9 +4,9 @@ plugins {
 }
 
 dependencies {
-    compile project(':batch-utils')
-
     implementation 'com.google.guava:guava'
+
+    implementation 'com.squareup.okhttp3:okhttp'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -29,5 +29,5 @@ test {
 }
 
 application {
-    mainClassName = 'com.poc.movies.batch.inventory.MainInventoryLoaderApp'
+    mainClassName = 'com.poc.movies.batch.links.MainLinksLoaderApp'
 }

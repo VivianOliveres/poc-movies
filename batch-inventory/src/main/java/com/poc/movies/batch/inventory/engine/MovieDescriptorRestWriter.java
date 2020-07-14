@@ -2,8 +2,8 @@ package com.poc.movies.batch.inventory.engine;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poc.movies.batch.inventory.HttpUtils;
 import com.poc.movies.batch.inventory.model.MovieDescriptor;
+import com.poc.movies.batch.links.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 

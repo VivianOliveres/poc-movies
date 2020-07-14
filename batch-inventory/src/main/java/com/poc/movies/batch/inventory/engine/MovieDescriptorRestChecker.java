@@ -1,8 +1,8 @@
 package com.poc.movies.batch.inventory.engine;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poc.movies.batch.inventory.HttpUtils;
 import com.poc.movies.batch.inventory.model.MovieDescriptor;
+import com.poc.movies.batch.links.HttpUtils;
 import org.springframework.batch.item.ItemWriter;
 
 import java.util.List;
