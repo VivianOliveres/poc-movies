@@ -1,11 +1,13 @@
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 .gradle
 /build/
+batch-utils/build/
 inventory/build/
 batch-inventory/build/
 links/build/
 batch-links/build/
 ratings/build/
+batch-ratings/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

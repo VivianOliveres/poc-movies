@@ -9,3 +9,4 @@ include 'links'
 include 'batch-links'
 
 include 'ratings'
+include 'batch-ratings'

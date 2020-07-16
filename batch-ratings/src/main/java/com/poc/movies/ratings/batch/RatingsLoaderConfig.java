@@ -1,11 +1,10 @@
-package com.poc.movies.batch.inventory;
+package com.poc.movies.ratings.batch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poc.movies.batch.inventory.engine.MovieDescriptorLineMapper;
-import com.poc.movies.batch.inventory.engine.MovieDescriptorProcessor;
-import com.poc.movies.batch.inventory.engine.MovieDescriptorRestChecker;
-import com.poc.movies.batch.inventory.engine.MovieDescriptorRestWriter;
-import com.poc.movies.batch.inventory.model.MovieDescriptor;
+import com.poc.movies.ratings.batch.engine.RatingsDescriptorLineMapper;
+import com.poc.movies.ratings.batch.engine.RatingsDescriptorRestChecker;
+import com.poc.movies.ratings.batch.engine.RatingsDescriptorRestWriter;
+import com.poc.movies.ratings.batch.model.RatingsDescriptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -26,7 +25,7 @@ import java.util.Objects;
 @Slf4j
 @Configuration
 @EnableBatchProcessing
-public class InventoryLoaderConfig {
+public class RatingsLoaderConfig {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -37,54 +36,53 @@ public class InventoryLoaderConfig {
     @Autowired
     private ObjectMapper mapper;
 
-    public Job inventoryLoaderJob(String filePath, String host) {
-        return jobBuilderFactory.get("inventoryLoaderJob")
+
+    public Job ratingsLoaderJob(String filePath, String host) {
+        return jobBuilderFactory.get("ratingsLoaderJob")
                 .start(stepLoad(filePath, host))
                 .next(stepCheck(filePath, host))
                 .build();
     }
 
     private Step stepLoad(String filePath, String host) {
-        return stepBuilderFactory.get("stepLoad").<MovieDescriptor, MovieDescriptor>chunk(100)
+        return stepBuilderFactory.get("stepLoad").<RatingsDescriptor, RatingsDescriptor>chunk(1000)
                 .reader(reader(filePath))
-                .processor(new MovieDescriptorProcessor())
                 .writer(restWriter(host))
                 .taskExecutor(taskExecutor())
                 .build();
     }
 
-    private MovieDescriptorRestWriter restWriter(String host) {
+    private RatingsDescriptorRestWriter restWriter(String host) {
         Objects.requireNonNull(host);
-        return new MovieDescriptorRestWriter(host, mapper);
+        return new RatingsDescriptorRestWriter(host, mapper);
     }
 
     private Step stepCheck(String filePath, String host) {
-        return stepBuilderFactory.get("stepCheck").<MovieDescriptor, MovieDescriptor>chunk(1)
+        return stepBuilderFactory.get("stepCheck").<RatingsDescriptor, RatingsDescriptor>chunk(1)
                 .reader(reader(filePath))
-                .processor(new MovieDescriptorProcessor())
                 .writer(restChecker(host))
                 .taskExecutor(taskExecutor())
                 .build();
     }
 
-    private MovieDescriptorRestChecker restChecker(String host) {
+    private RatingsDescriptorRestChecker restChecker(String host) {
         Objects.requireNonNull(host);
-        return new MovieDescriptorRestChecker(host, mapper);
+        return new RatingsDescriptorRestChecker(host, mapper);
     }
 
-    private FlatFileItemReader<MovieDescriptor> reader(String filePath) {
+    private FlatFileItemReader<RatingsDescriptor> reader(String filePath) {
         Objects.requireNonNull(filePath);
-        return new FlatFileItemReaderBuilder<MovieDescriptor>()
-                .name("movieDescriptorReader")
+        return new FlatFileItemReaderBuilder<RatingsDescriptor>()
+                .name("ratingsDescriptorReader")
                 .resource(new FileSystemResource(filePath))
-                .lineMapper(new MovieDescriptorLineMapper())
+                .lineMapper(new RatingsDescriptorLineMapper())
                 .linesToSkip(1)
                 .build();
     }
 
     @Bean
     public TaskExecutor taskExecutor() {
-        SimpleAsyncTaskExecutor taskExecutor = new SimpleAsyncTaskExecutor("batch-inventory");
+        SimpleAsyncTaskExecutor taskExecutor = new SimpleAsyncTaskExecutor("ratings");
         taskExecutor.setConcurrencyLimit(Runtime.getRuntime().availableProcessors());
         return taskExecutor;
     }

@@ -2,8 +2,8 @@ package com.poc.movies.batch.inventory.engine;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poc.movies.batch.HttpUtils;
 import com.poc.movies.batch.inventory.model.MovieDescriptor;
-import com.poc.movies.batch.links.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 
@@ -16,13 +16,13 @@ public class MovieDescriptorRestWriter implements ItemWriter<MovieDescriptor> {
 
     public static final String POST_URL = "/inventory/movies";
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     private final String host;
+    private static ObjectMapper mapper;
 
-    public MovieDescriptorRestWriter(String host) {
+    public MovieDescriptorRestWriter(String host, ObjectMapper mapper) {
         Objects.requireNonNull(host);
         this.host = host;
+        this.mapper = mapper;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class MovieDescriptorRestWriter implements ItemWriter<MovieDescriptor> {
 
     private Optional<String> toJson(List<? extends MovieDescriptor> descs) {
         try {
-            return Optional.of(MAPPER.writeValueAsString(descs));
+            return Optional.of(mapper.writeValueAsString(descs));
 
         } catch (JsonProcessingException e) {
             log.error("Fail to convert into json: " + descs, e);

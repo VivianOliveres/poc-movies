@@ -1,5 +1,6 @@
 package com.poc.movies.batch.links;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poc.movies.batch.links.engine.LinksDescriptorLineMapper;
 import com.poc.movies.batch.links.engine.LinksDescriptorRestChecker;
 import com.poc.movies.batch.links.engine.LinksDescriptorRestWriter;
@@ -27,10 +28,13 @@ import java.util.Objects;
 public class LinksLoaderConfig {
 
     @Autowired
-    public JobBuilderFactory jobBuilderFactory;
+    private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    private StepBuilderFactory stepBuilderFactory;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     public Job linksLoaderJob(String filePath, String host) {
         return jobBuilderFactory.get("linksLoaderJob")
@@ -49,7 +53,7 @@ public class LinksLoaderConfig {
 
     private LinksDescriptorRestWriter restWriter(String host) {
         Objects.requireNonNull(host);
-        return new LinksDescriptorRestWriter(host);
+        return new LinksDescriptorRestWriter(host, mapper);
     }
 
     private Step stepCheck(String filePath, String host) {
@@ -62,7 +66,7 @@ public class LinksLoaderConfig {
 
     private LinksDescriptorRestChecker restChecker(String host) {
         Objects.requireNonNull(host);
-        return new LinksDescriptorRestChecker(host);
+        return new LinksDescriptorRestChecker(host, mapper);
     }
 
     private FlatFileItemReader<LinksDescriptor> reader(String filePath) {

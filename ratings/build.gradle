@@ -6,6 +6,9 @@ plugins {
 dependencies {
     implementation 'com.google.guava:guava'
 
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -26,5 +29,5 @@ test {
 }
 
 application {
-    mainClassName = 'com.poc.movies.links.LinksApp'
+    mainClassName = 'com.poc.movies.ratings.RatingsApp'
 }

@@ -1,2 +1,0 @@
-com/poc/movies/links/LinksServiceTest.java
- com.poc.movies.links.LinksServiceTest

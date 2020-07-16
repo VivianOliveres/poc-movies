@@ -26,7 +26,8 @@ public class RatingsService {
     }
 
     public void insertMany(List<Rating> ratingsToInsert) {
-        ratingsToInsert.forEach(this::insert);
+        var toInsert = ratingsToInsert.stream().map(this::fromModel).collect(toList());
+        repository.saveAll(toInsert);
     }
 
     private RatingEntity fromModel(Rating rating) {

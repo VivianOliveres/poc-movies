@@ -1,9 +1,9 @@
-package com.poc.movies.batch.links.engine;
+package com.poc.movies.ratings.batch.engine;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poc.movies.batch.HttpUtils;
-import com.poc.movies.batch.links.model.LinksDescriptor;
+import com.poc.movies.ratings.batch.model.RatingsDescriptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 
@@ -12,15 +12,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
-public class LinksDescriptorRestWriter implements ItemWriter<LinksDescriptor> {
+public class RatingsDescriptorRestWriter implements ItemWriter<RatingsDescriptor> {
 
-    public static final String POST_URL = "/external/links";
-
-    private final ObjectMapper mapper;
+    public static final String POST_URL = "/ratings/bulk";
 
     private final String host;
+    private final ObjectMapper mapper;
 
-    public LinksDescriptorRestWriter(String host, ObjectMapper mapper) {
+    public RatingsDescriptorRestWriter(String host, ObjectMapper mapper) {
         Objects.requireNonNull(host);
         Objects.requireNonNull(mapper);
         this.host = host;
@@ -28,12 +27,12 @@ public class LinksDescriptorRestWriter implements ItemWriter<LinksDescriptor> {
     }
 
     @Override
-    public void write(List<? extends LinksDescriptor> items) throws Exception {
+    public void write(List<? extends RatingsDescriptor> items) throws Exception {
         var json = toJson(items).get();
         HttpUtils.post(host + POST_URL, json);
     }
 
-    private Optional<String> toJson(List<? extends LinksDescriptor> descs) {
+    private Optional<String> toJson(List<? extends RatingsDescriptor> descs) {
         try {
             return Optional.of(mapper.writeValueAsString(descs));
 

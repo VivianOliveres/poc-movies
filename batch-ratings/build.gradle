@@ -4,9 +4,12 @@ plugins {
 }
 
 dependencies {
+    implementation project(':batch-utils')
+
     implementation 'com.google.guava:guava'
 
-    implementation 'com.squareup.okhttp3:okhttp'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -29,5 +32,5 @@ test {
 }
 
 application {
-    mainClassName = 'com.poc.movies.batch.links.MainLinksLoaderApp'
+    mainClassName = 'com.poc.movies.ratings.batch.MainRatingsLoaderApp'
 }

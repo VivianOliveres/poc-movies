@@ -4,9 +4,12 @@ plugins {
 }
 
 dependencies {
-    compile project(':batch-utils')
+    implementation project(':batch-utils')
 
     implementation 'com.google.guava:guava'
+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
