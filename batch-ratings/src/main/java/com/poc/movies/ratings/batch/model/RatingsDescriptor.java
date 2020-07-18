@@ -32,6 +32,6 @@ public class RatingsDescriptor {
         this.movieId = movieId;
         this.userId = userId;
         this.ratingValue = ratingValue;
-        this.ratingTime = ofInstant(ofEpochMilli(timestamp), getDefault().toZoneId()).withNano(0);
+        this.ratingTime = ofInstant(ofEpochMilli(timestamp * 1000), getDefault().toZoneId()).withNano(0);
     }
 }
