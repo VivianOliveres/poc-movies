@@ -1,0 +1,16 @@
+# Logging settings.
+logging:
+  level:
+    org.springframework.data: ERROR
+    org.springframework.jdbc.core.JdbcTemplate: ERROR
+    com.poc.movies.inventory: INFO
+
+server.port: 8084
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: me
+    password: 123
+    jdbc-url: jdbc:mysql://localhost:3309/tags?serverTimezone=Europe/Paris
+    url: jdbc:mysql://localhost:3309/tags?serverTimezone=Europe/Paris

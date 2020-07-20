@@ -27,9 +27,6 @@ public class Rating {
     }
 
     public Rating(long movieId, long userId, double ratingValue, long timestamp) {
-        this.movieId = movieId;
-        this.userId = userId;
-        this.ratingValue = ratingValue;
-        this.ratingTime = ofInstant(ofEpochMilli(timestamp * 1000), getDefault().toZoneId()).withNano(0);
+        this(movieId, userId, ratingValue, ofInstant(ofEpochMilli(timestamp * 1000), getDefault().toZoneId()).withNano(0));
     }
 }

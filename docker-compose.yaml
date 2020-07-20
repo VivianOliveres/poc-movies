@@ -39,3 +39,16 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_USER: me
       MYSQL_PASSWORD: 123
+
+  movies_tags_db:
+    image: mysql:latest
+    volumes:
+      - ./_infra/init_tags.sql:/docker-entrypoint-initdb.d/init_tags.sql:ro
+    restart: always
+    ports:
+      - 3309:3306
+    environment:
+      MYSQL_DATABASE: tags
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: me
+      MYSQL_PASSWORD: 123

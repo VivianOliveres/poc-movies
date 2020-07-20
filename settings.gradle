@@ -10,3 +10,5 @@ include 'batch-links'
 
 include 'ratings'
 include 'batch-ratings'
+
+include 'tags'
