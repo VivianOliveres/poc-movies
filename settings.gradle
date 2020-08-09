@@ -12,3 +12,4 @@ include 'ratings'
 include 'batch-ratings'
 
 include 'tags'
+include 'batch-tags'

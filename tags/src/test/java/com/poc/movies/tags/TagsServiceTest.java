@@ -102,4 +102,20 @@ public class TagsServiceTest {
         assertThat(tags).containsOnly(TAG_65_521);
     }
 
+    @Test
+    public void should_handle_large_tagName() {
+        service.insert(TAG_922_1741);
+
+        List<Tag> result = service.getTagsByMovieId(TAG_922_1741.getMovieId());
+        assertThat(result).containsOnly(TAG_922_1741);
+    }
+
+    @Test
+    public void should_handle_accents() {
+        service.insert(TAG_2905_13778);
+
+        List<Tag> result = service.getTagsByMovieId(TAG_2905_13778.getMovieId());
+        assertThat(result).containsOnly(TAG_2905_13778);
+    }
+
 }

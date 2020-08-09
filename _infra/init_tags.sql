@@ -11,8 +11,8 @@ ALTER TABLE User_Tag ADD UNIQUE user_tag_unique_index(user_id, movie_id, tag_nam
 
 CREATE TABLE IF NOT EXISTS Tag_Name (
     tag_name_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    tag_name VARCHAR(50) NOT NULL
-);
+    tag_name VARCHAR(300) NOT NULL
+) CHARACTER SET utf8;
 ALTER TABLE Tag_Name ADD UNIQUE INDEX tag_name_unique (tag_name DESC) ;
 
 CREATE TABLE IF NOT EXISTS User_Tag_Name (

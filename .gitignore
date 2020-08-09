@@ -9,6 +9,7 @@ batch-links/build/
 ratings/build/
 batch-ratings/build/
 tags/build/
+batch-tags/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

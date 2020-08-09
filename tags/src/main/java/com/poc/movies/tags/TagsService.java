@@ -6,6 +6,7 @@ import com.poc.movies.tags.db.TagNameEntity;
 import com.poc.movies.tags.db.TagNameRepository;
 import com.poc.movies.tags.db.UserTagEntity;
 import com.poc.movies.tags.model.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 import static java.util.stream.StreamSupport.stream;
 
+@Slf4j
 @Service
 public class TagsService {
 
@@ -70,6 +72,17 @@ public class TagsService {
         }
 
         Map<String, Long> tagNameById = tagNameEntities.stream().collect(toMap(TagNameEntity::getTagName, TagNameEntity::getTagNameId));
+        if (tagNames.size() != tagNameEntities.size()) {
+            log.error("Failed to find tags! Expecting {} tags but found {}", tagNames.size(), tagNameEntities.size());
+            var toto = tagNames.stream().filter(name -> !tagNameById.containsKey(name)).collect(toList());
+            log.error("Missing: {}", toto);
+            log.error("tagNameEntities: {}", tagNameEntities);
+            log.error("Tags : {}", toInsert.stream().filter(t -> toto.contains(t.getTagName())).collect(toList()));
+            log.error("TagNameEntity : {}", tagNameEntities.stream().filter(t -> toto.contains(t.getTagName())).collect(toList()));
+            log.error("Missing: {}", toto.size());
+            System.exit(0);Diabulus in
+        }
+
         List<UserTagEntity> entitiesToInsert = toInsert.stream()
                 .map(tag -> new UserTagEntity(null, tag.getUserId(), tag.getMovieId(), tagNameById.get(tag.getTagName()), tag.getTagTime()))
                 .collect(toList());

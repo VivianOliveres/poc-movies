@@ -13,4 +13,7 @@ public class TagsData {
     public static final Tag TAG_318_260_1 = new Tag(318L,260L,"1970s",1424472169L);
     public static final Tag TAG_318_260_2 = new Tag(318L,260L,"fantasy",1424472169L);
 
+    public static final Tag TAG_922_1741 = new Tag(922L,1741L,"theatrical people/inside the theatre or cinema/actors & acting",1267293072L);
+
+    public static final Tag TAG_2905_13778 = new Tag(2905L,13778L,"toshirô mifune",1239042270L);
 }
