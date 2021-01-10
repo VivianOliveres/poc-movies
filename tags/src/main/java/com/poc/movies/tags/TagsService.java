@@ -80,7 +80,7 @@ public class TagsService {
             log.error("Tags : {}", toInsert.stream().filter(t -> toto.contains(t.getTagName())).collect(toList()));
             log.error("TagNameEntity : {}", tagNameEntities.stream().filter(t -> toto.contains(t.getTagName())).collect(toList()));
             log.error("Missing: {}", toto.size());
-            System.exit(0);Diabulus in
+            System.exit(0);
         }
 
         List<UserTagEntity> entitiesToInsert = toInsert.stream()

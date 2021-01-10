@@ -1,44 +1,44 @@
 version: '3.3'
 
 services:
-#  movies_inventory_db:
-#    image: mysql:latest
-#    volumes:
-#      - ./_infra/init_inventory.sql:/docker-entrypoint-initdb.d/init_inventory.sql:ro
-#    restart: always
-#    ports:
-#      - 3306:3306
-#    environment:
-#      MYSQL_DATABASE: inventory
-#      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-#      MYSQL_USER: me
-#      MYSQL_PASSWORD: 123
-#
-#  movies_links_db:
-#    image: mysql:latest
-#    volumes:
-#      - ./_infra/init_links.sql:/docker-entrypoint-initdb.d/init_links.sql:ro
-#    restart: always
-#    ports:
-#      - 3307:3306
-#    environment:
-#      MYSQL_DATABASE: links
-#      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-#      MYSQL_USER: me
-#      MYSQL_PASSWORD: 123
-#
-#  movies_ratings_db:
-#    image: mysql:latest
-#    volumes:
-#      - ./_infra/init_ratings.sql:/docker-entrypoint-initdb.d/init_ratings.sql:ro
-#    restart: always
-#    ports:
-#      - 3308:3306
-#    environment:
-#      MYSQL_DATABASE: ratings
-#      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-#      MYSQL_USER: me
-#      MYSQL_PASSWORD: 123
+  movies_inventory_db:
+    image: mysql:latest
+    volumes:
+      - ./_infra/init_inventory.sql:/docker-entrypoint-initdb.d/init_inventory.sql:ro
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: inventory
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: me
+      MYSQL_PASSWORD: 123
+
+  movies_links_db:
+    image: mysql:latest
+    volumes:
+      - ./_infra/init_links.sql:/docker-entrypoint-initdb.d/init_links.sql:ro
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: links
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: me
+      MYSQL_PASSWORD: 123
+
+  movies_ratings_db:
+    image: mysql:latest
+    volumes:
+      - ./_infra/init_ratings.sql:/docker-entrypoint-initdb.d/init_ratings.sql:ro
+    restart: always
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_DATABASE: ratings
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: me
+      MYSQL_PASSWORD: 123
 
   movies_tags_db:
     image: mysql:latest
